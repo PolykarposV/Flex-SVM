@@ -26,12 +26,12 @@ Follow these steps to install the project:
 
 ### 1. Clone the repository
    ```bash
-   git clone https://github.com/PolykarposV/FLEX-SVM.git
+   git clone https://github.com/PolykarposV/Flex-SVM.git
    ```
 
 ### 2. Cd into it
    ```bash
-   cd ./FLEX-SVM
+   cd ./Flex-SVM
    ```
 
 ### 3. Build the Dockerfile inside the Container
