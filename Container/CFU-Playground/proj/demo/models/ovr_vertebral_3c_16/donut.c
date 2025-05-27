@@ -88,7 +88,7 @@ void donut() {
 
             b |= ((biases_q[j] & 0xFFFF));
 
-            max_idx = SV_res(a,b) & 0xFF;
+            max_idx = SV_res16(a,b) & 0xFF;
         }
 
         predictions[i] = max_idx;
