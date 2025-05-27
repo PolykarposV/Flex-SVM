@@ -93,7 +93,7 @@ void donut() {
             b |= ((weights_q[j][32] & 0xF));
             b |= ((biases_q[j] & 0xF) << 4);
 
-            max_idx = SV_res(a, b) & 0xFF;
+            max_idx = SV_res4(a, b) & 0xFF;
         }
 
         predictions[i] = max_idx;
