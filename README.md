@@ -155,11 +155,11 @@ If you plan to use the ML accelerator, it is important to adhere to its architec
 
 | Instruction     | Weight Precision | Operand A Format                                      | Operand B Format               |
 |----------------|------------------|-------------------------------------------------------|--------------------------------|
-| SV_calc4      | 4-bit            | {input0, input1, ..., input7}                      | {weight0, weight1, ..., weight7} |
-| SV_calc8      | 8-bit            | {input0 ×2, input1 ×2, input2 ×2, input3 ×2} | {weight0, weight1, weight2, weight3} |
-| SV_calc16     | 16-bit           | {input0 ×4, input1 ×4}                              | {weight0, weight1}           |
-| SV_res*       | All              | {0}                                                 | {0}                          |
-| SV_create_env | All              | {0}                                                 | {0}                          | 
+| `SV_calc4`      | 4-bit            | `{input0, input1, ..., input7}`                      | `{weight0, weight1, ..., weight7}` |
+| `SV_calc8`      | 8-bit            | `{input0 ×2, input1 ×2, input2 ×2, input3 ×2}` | `{weight0, weight1, weight2, weight3}` |
+| `SV_calc16`     | 16-bit           | `{input0 ×4, input1 ×4}`                              | `{weight0, weight1}`           |
+| `SV_res*`       | All              | `{0}`                                                | `{0}`                          |
+| `SV_create_env` | All              | `{0}`                                                 |`{0}`                          | 
 
 
 
