@@ -151,48 +151,15 @@ For different weight precisions (4-bit, 8-bit, 16-bit), the last two instruction
 
 If you plan to use the ML accelerator, it is important to adhere to its architectural constraints—particularly in how arguments are passed to the custom instructions.
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center;">Instruction</th>
-      <th style="text-align: center;">Weight Precision</th>
-      <th style="text-align: center;">Operand A Format</th>
-      <th style="text-align: center;">Operand B Format</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center;">SV_calc4</td>
-      <td style="text-align: center;">4-bit</td>
-      <td style="text-align: center;">{input0, input1, ..., input7}</td>
-      <td style="text-align: center;">{weight0, weight1, ..., weight7}</td>
-    </tr>
-    <tr>
-      <td style="text-align: center;">SV_calc8</td>
-      <td style="text-align: center;">8-bit</td>
-      <td style="text-align: center;">{input0 ×2, input1 ×2, input2 ×2, input3 ×2}</td>
-      <td style="text-align: center;">{weight0, weight1, weight2, weight3}</td>
-    </tr>
-    <tr>
-      <td style="text-align: center;">SV_calc16</td>
-      <td style="text-align: center;">16-bit</td>
-      <td style="text-align: center;">{input0 ×4, input1 ×4}</td>
-      <td style="text-align: center;">{weight0, weight1}</td>
-    </tr>
-    <tr>
-      <td style="text-align: center;">SV_res*</td>
-      <td style="text-align: center;">All</td>
-      <td style="text-align: center;">{0}</td>
-      <td style="text-align: center;">{0}</td>
-    </tr>
-    <tr>
-      <td style="text-align: center;">SV_create_env</td>
-      <td style="text-align: center;">All</td>
-      <td style="text-align: center;">{0}</td>
-      <td style="text-align: center;">{0}</td>
-    </tr>
-  </tbody>
-</table>
+
+
+| Instruction     | Weight Precision | Operand A Format                                      | Operand B Format               |
+|----------------|------------------|-------------------------------------------------------|--------------------------------|
+| SV_calc4      | 4-bit            | {input0, input1, ..., input7}                      | {weight0, weight1, ..., weight7} |
+| SV_calc8      | 8-bit            | {input0 ×2, input1 ×2, input2 ×2, input3 ×2} | {weight0, weight1, weight2, weight3} |
+| SV_calc16     | 16-bit           | {input0 ×4, input1 ×4}                              | {weight0, weight1}           |
+| SV_res*       | All              | {0}                                                 | {0}                          |
+| SV_create_env | All              | {0}                                                 | {0}                          | 
 
 
 
