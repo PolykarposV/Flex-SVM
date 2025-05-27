@@ -78,7 +78,7 @@ After you have finished the installation process and are inside the docker image
 ### 2. Synthesize your system with Vivado and load the bitstream to the FPGA:
    
    ```bash
-   make TARGET=digilent_arty_s7 USE_VIVADO=1 EXTRA_LITEX_ARGS="--cpu-type=serv --cpu-variant=cfu" SERV=1 TTY=/dev/ttyUSB1 prog
+   make TARGET=digilent_arty_s7 USE_VIVADO=1 EXTRA_LITEX_ARGS="--cpu-type=serv --cpu-variant=cfu" SERV=1 TTY=/dev/ttyUSB1 IGNORE_TIMING=1 prog
    ```
 
    - **TARGET** specifies the board we are using, in this case the Digilent Arty S7.
@@ -99,7 +99,7 @@ After you have programmed your FPGA follow these steps to execute your C program
 
 ### 1. Compile your C programs and load the binary files
    ```bash
-   make TARGET=digilent_arty_s7 USE_VIVADO=1 EXTRA_LITEX_ARGS="--cpu-type=serv --cpu-variant=cfu" SERV=1 TTY=/dev/ttyUSB1 load
+   make TARGET=digilent_arty_s7 USE_VIVADO=1 EXTRA_LITEX_ARGS="--cpu-type=serv --cpu-variant=cfu" SERV=1 TTY=/dev/ttyUSB1 IGNORE_TIMING=1 load
    ```
 
 ### 2. Start the LiteX terminal
