@@ -12,16 +12,13 @@
 #include <weights_q.h>
 #include <biases_q.h>
 
-
 #define SV_create_env(a,b)    opcode_R(0x33, 0x7, 0x1, a, b)
-#define SV_calc(a,b)     opcode_R(0x33, 0x4, 0x1, a, b)
-#define SV_res(a,b)     opcode_R(0x33, 0x5, 0x1, a, b)
-/*
-#define ShowCycles(a,b)     opcode_R(0x33, 0x0, 0x1, a, b)
-#define ShowAllInst(a,b)     opcode_R(0x33, 0x1, 0x1, a, b)
-#define ShowCpuInst(a,b)     opcode_R(0x33, 0x2, 0x1, a, b)
-#define ShowRWInst(a,b)     opcode_R(0x33, 0x3, 0x1, a, b)
-*/
+#define SV_calc4(a,b)     opcode_R(0x33, 0x0, 0x1, a, b)
+#define SV_res4(a,b)     opcode_R(0x33, 0x1, 0x1, a, b)
+#define SV_calc8(a,b)     opcode_R(0x33, 0x2, 0x1, a, b)
+#define SV_res8(a,b)     opcode_R(0x33, 0x3, 0x1, a, b)
+#define SV_calc16(a,b)     opcode_R(0x33, 0x4, 0x1, a, b)
+#define SV_res16(a,b)     opcode_R(0x33, 0x5, 0x1, a, b)
 
 #ifdef OPT_LINK_CODE_IN_SRAM
 void donut(void) __attribute__((section(".ramtext")));
@@ -67,12 +64,6 @@ void get_class_pair(int classifier_idx, int* c1, int* c2) {
 }
 
 void donut() {
-/*
-    int start_cycles = ShowCycles(0,0);    // Start point for cycle counter
-    int start_inst = ShowAllInst(0,0);     // Start point for instruction counter
-    int start_cpu_inst = ShowCpuInst(0,0); // Start point for cpu-type instruction counter
-    int start_rw_inst = ShowRWInst(0,0);   // Start point for read/write instruction counter
-*/
     int predictions[num_samples];
     int c1,c2;
     int a,b;
@@ -101,7 +92,7 @@ void donut() {
                 b |= ((weights_q[j][k*2 + 1] & 0xFFFF) << 16);
 
 
-                SV_calc(a,b);
+                SV_calc16(a,b);
             }
             a = 0;
             b = 0;
@@ -113,7 +104,7 @@ void donut() {
 
             b |= ((biases_q[j] & 0xFFFF));
 
-	    decision = SV_res(a,b);
+	    decision = SV_res16(a,b);
                get_class_pair(j,&c1,&c2);
                if (decision >= 0) {
                    votes[c1]++;
@@ -131,17 +122,6 @@ void donut() {
             correct++;
         }
     }
-/*
-    int end_cycles = ShowCycles(0,0);	   // End point for cycle counter
-    int end_inst = ShowAllInst(0,0);       // End point for instruction counter
-    int end_cpu_inst = ShowCpuInst(0,0);   // End point for cpu-type instruction counter
-    int end_rw_inst = ShowRWInst(0,0);     // End point for read/write instruction counter
-*/
+
     printf("%d correct predictions out of %d\n", correct, num_samples);
-/*
-    printf("Cycles passed %d\n", end_cycles - start_cycles);
-    printf("Instructions executed %d\n", end_inst - start_inst);
-    printf("CPU instructions executed %d\n", end_cpu_inst - start_cpu_inst);
-    printf("R/W instructions executed %d\n", end_rw_inst - start_rw_inst);
-*/
 }
