@@ -120,13 +120,13 @@ If you wish to exit and return back, press repeatedly **Ctrl+C**.
 
 ## How to create and test your own C programs
 
-With the ```make load``` command and the proper arguments as discussed, everything that is inside the src directory of our project is being compiled.
+With the ```make load``` command and the proper arguments as discussed, everything that is inside the src directory of your project is being compiled.
 
 Inside the src directory there is a donut.c file that contains the function _void donut()_.
 
 This is the "main" function that contains your program under testing.
 
-Within the _demo/models_ directory, you will find all the models used to evaluate and validate the co-processor across five different datasets. For each dataset, there is one model per configuration—using 4-, 8-, or 16-bit weight parameters—and one model per classification strategy: one-vs-rest (OvR) or one-vs-one (OvO). This results in a total of 30 distinct test cases, each serving as a comprehensive example for testing and benchmarking the system
+Within the _demo/models_ directory, you will find all the models we used to evaluate and validate our own SVM co-processor across five different datasets. For each dataset, there is one model per configuration—using 4-, 8-, or 16-bit weight parameters—and one model per classification strategy: one-vs-rest (OvR) or one-vs-one (OvO). This results in a total of 30 distinct test cases, each serving as a comprehensive example for testing and benchmarking the system.
 
 In any case, keep the defined macros as they are, since these are the new instructions implemented for the custom co-processor, along with all the header files that you plan to use.
 
@@ -164,20 +164,6 @@ If you plan to use the ML accelerator, it is important to adhere to its architec
 > 
 > Alternatively, SV_res can be used just like SV_calc to process the final batch and return the result.
 
-### Counters
-
-There are 4 different counters used for the emulation. The implemented instructions below only return the value of the counter, so you need to have a starting and an ending point and calculate the difference.
-
-- ``` ShowCycles(a,b) ```. Cycles counter with respect to the C-SPI overhead.
-
-- ``` ShowAllInst(a,b) ```. Instructions counter.
-
-- ``` ShowCpuInst(a,b) ```. Cpu-type instructions counter. Together with ShowAllInst you can also determine the number of cfu-type instructions.
-
-- ``` ShowRWInst(a,b) ```. Counter for memory access instructions.  
-
-The arguments a and b are irrelevant for these counters so you can set them both to 0.
-
 
 ## Files for synthesis
 
@@ -187,17 +173,17 @@ All the files required for synthesis are located within the _Synthesis_ director
   * It holds the .v, .tcl, and .sh files necessary for SERV synthesis.
 
 - CFU
-  * It contains the .v, .tcl, and .sh files necessary for CFU synthesis.   
+  * It contains the .v, .tcl, and .sh files necessary for ML accelerator synthesis.   
 
 If you're planning to change the system's architecture you can find the .v files for SERV in the **Container/CFU-Playground/third_party/python/pythondata_cpu_serv/pythondata_cpu_serv/verilog/rtl/** directory and the cfu.v file in **Container/CFU-Playground/proj/demo/cfu.v**.
 
 
-## Altering the CFU architecture
+## Altering the ML accelerator's architecture
 
-So far we have demonstrated how to program an FPGA board with the existing SERV + CFU architecture and how to develop and run programs in C using the new CFU-instructions. However, if someone needs a co-processor tailored to their needs, they could quite easily re-program the existing CFU.
+So far we have demonstrated how to program an FPGA board with the existing SERV + ML accelerator architecture and how to develop and run programs in C using the new instructions. However, if someone needs a co-processor tailored to their needs, they could quite easily re-program the existing one.
 
-You could modify the cfu.v file inside the demo directory according to your application, but you need to maintain the same interface between SERV and CFU. Also you need to respect the handshake signals that are implemented and the cycle-constraints that exist. 
+You could modify the cfu.v file inside the demo directory according to your application, but you need to maintain the same interface between SERV and co-processor. Also you need to respect the handshake signals that are implemented and the cycle-constraints that exist. 
 
-In our case, CFU needs 1 cycle to store the inputs to the corresponding registers and 1 more cycle to compute and set the output flag to logic high. These 2 cycles must be preserved. It is possible for your CFU design to take more than 1 clock cycle to compute the output, but these two cycles are mandatory for the correct communication between processor and co-processor.
+In our case, the ML accelerator needs 1 cycle to store the inputs to the corresponding registers and 1 more cycle to compute and set the output flag to logic high. These 2 cycles must be preserved. It is possible for your design to take more than 1 clock cycle to compute the output, but these two cycles are mandatory for the correct communication between processor and co-processor.
 
-If you want to change the existing interface you need to modify the SERV .v files accordingly and both the cfu.v file and the instantiation of the CFU module.
+If you want to change the existing interface you need to modify the SERV .v files accordingly and both the cfu.v file and the instantiation of the ML accelerator module.
