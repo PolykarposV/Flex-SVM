@@ -76,7 +76,6 @@ void donut() {
 
                 SV_calc16(a,b);
             }
-            // Adding last 2 products to the sum
             a = 0;
             b = 0;
 
