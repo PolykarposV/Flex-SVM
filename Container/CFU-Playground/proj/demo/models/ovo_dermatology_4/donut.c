@@ -97,7 +97,7 @@ void donut() {
                 b |= ((weights_q[j][k*8 + 6] & 0xF) << 24);
                 b |= ((weights_q[j][k*8 + 7] & 0xF) << 28);
 
-                SV_calc16(a,b);
+                SV_calc4(a,b);
             }
 
             a = 0;
@@ -111,7 +111,7 @@ void donut() {
             b |= ((weights_q[j][32] & 0xF));
             b |= ((1 & 0xF) << 4);
 
-            decision = SV_res16(a,b);
+            decision = SV_res4(a,b);
 	       get_class_pair(j,&c1,&c2);
 	       if (decision >= 0) {
           	   votes[c1]++;
