@@ -77,7 +77,6 @@ void donut() {
                 b |= ((weights_q[j][k*4 + 3] & 0xFF) << 24);
 
                 SV_calc8(a,b);
-                //print_binary("Current sum is", myres);
             }
             // Adding last 2 products to the sum
             a = 0;
